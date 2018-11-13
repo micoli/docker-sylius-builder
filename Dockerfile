@@ -25,7 +25,13 @@ RUN	apk update ;\
 	\
 	curl -o /tmp/helm.tgz https://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-linux-amd64.tar.gz  ; \
 	tar xvfz /tmp/helm.tgz -C /usr/local/bin/ --strip-components=1 linux-amd64/helm ;\
-	chmod a+x /usr/local/bin/helm;
+	chmod a+x /usr/local/bin/helm;\
+	\
+	apk add go; \
+	go get  github.com/VirtusLab/render; \
+	go build  github.com/VirtusLab/render; \
+	apk del go; \
+	sudo mv render /usr/local/bin/render
 
 ENTRYPOINT ["/bin/bash"]
 
